@@ -17,6 +17,15 @@
       "skills": [
         "./skills/frontend-for-opus-4-5"
       ]
+    },
+    {
+      "name": "symphony",
+      "description": "Symphony orchestrates parallel phase execution from structured plan files.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/symphony"
+      ]
     }
   ]
 }
