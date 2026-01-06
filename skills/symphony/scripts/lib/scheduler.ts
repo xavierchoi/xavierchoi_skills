@@ -501,6 +501,8 @@ export class DependencyGraph {
       failed: 0,
       aborted: 0,
       blocked: 0,
+      retrying: 0,
+      awaiting_decision: 0,
     }
 
     for (const phase of this.phases.values()) {

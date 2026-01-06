@@ -16,10 +16,12 @@
  *   Exit code 0 on success, 1 on failure
  */
 
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs'
+import { readFileSync, existsSync, mkdirSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { validatePhases } from './lib/validation.ts'
+import { DEFAULT_RETRY_POLICY } from './lib/types.ts'
 import type { Phase, SymphonyState, PhaseState } from './lib/types.ts'
+import { atomicWriteFileSync } from './lib/atomic-write.ts'
 
 /**
  * Extract the symphony-phases JSON block from markdown content
@@ -100,6 +102,7 @@ function createPhaseState(): PhaseState {
   return {
     status: 'pending',
     artifacts: [],
+    retryCount: 0,
   }
 }
 
@@ -121,6 +124,8 @@ function createInitialState(planPath: string, phases: Phase[]): SymphonyState & 
     completedCount: 0,
     failedCount: 0,
     status: 'running',
+    retryPolicy: DEFAULT_RETRY_POLICY,
+    pendingDecisions: [],
   }
 }
 
@@ -189,7 +194,7 @@ function main(): void {
 
   // Write state file
   try {
-    writeFileSync(outputPath, JSON.stringify(state, null, 2), 'utf-8')
+    atomicWriteFileSync(outputPath, JSON.stringify(state, null, 2))
   } catch (error) {
     console.error(`Error: Failed to write state file: ${error}`)
     process.exit(1)

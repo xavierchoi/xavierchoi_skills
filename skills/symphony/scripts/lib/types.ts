@@ -40,6 +40,60 @@ export type PhaseStatus =
   | 'failed' // Error occurred
   | 'aborted' // User cancelled
   | 'blocked' // Dependency failed
+  | 'retrying' // Waiting for backoff delay before retry
+  | 'awaiting_decision' // Retries exhausted, waiting for user decision
+
+// Error Classification Types
+
+export type ErrorCategory =
+  | 'transient' // Network timeout, rate limit, temporary API errors
+  | 'resource' // File not found, permission denied
+  | 'logic' // Test failures, assertion errors
+  | 'permanent' // Invalid configuration, syntax errors
+  | 'timeout' // Phase execution timeout
+  | 'unknown' // Could not classify
+
+export interface RetryAttempt {
+  attemptNumber: number
+  startedAt: string // ISO date string
+  failedAt: string // ISO date string
+  error: string
+  errorCategory: ErrorCategory
+  durationMs: number
+}
+
+export type BackoffStrategy = 'fixed' | 'exponential' | 'exponential-jitter'
+
+export interface RetryPolicy {
+  maxRetries: number // Maximum retry attempts (default: 2)
+  backoffStrategy: BackoffStrategy
+  initialDelayMs: number // First retry delay (default: 5000)
+  maxDelayMs: number // Maximum delay cap (default: 60000)
+  retryableCategories: ErrorCategory[] // Which errors to retry
+}
+
+export const DEFAULT_RETRY_POLICY: RetryPolicy = {
+  maxRetries: 2,
+  backoffStrategy: 'exponential-jitter',
+  initialDelayMs: 5000,
+  maxDelayMs: 60000,
+  retryableCategories: ['transient', 'resource', 'timeout', 'unknown'],
+}
+
+export type DecisionOption =
+  | 'retry_once_more' // Try one more time
+  | 'skip_phase' // Mark as complete, proceed with dependents
+  | 'abort_branch' // Stop this phase and all dependents
+  | 'abort_all' // Stop entire orchestration
+
+export interface PendingDecision {
+  phaseId: string
+  error: string
+  errorCategory: ErrorCategory
+  retryCount: number
+  options: DecisionOption[]
+  askedAt: string // ISO date string
+}
 
 export interface ScheduledPhase extends Phase {
   status: PhaseStatus
@@ -76,7 +130,10 @@ export interface SymphonyState {
   plan?: { phases: Phase[] } // Full phase definitions for dependency resolution
   completedCount: number
   failedCount: number
-  status: 'running' | 'completed' | 'failed' | 'aborted'
+  status: 'running' | 'completed' | 'failed' | 'aborted' | 'awaiting_user_decision'
+  // Retry configuration
+  retryPolicy?: RetryPolicy // Applied policy (defaults to DEFAULT_RETRY_POLICY)
+  pendingDecisions?: PendingDecision[] // User decisions needed
 }
 
 export interface PhaseState {
@@ -85,6 +142,11 @@ export interface PhaseState {
   completedAt?: string
   error?: string
   artifacts: Artifact[]
+  // Retry tracking
+  retryCount: number // Current retry attempt (0 = first run)
+  retryHistory?: RetryAttempt[] // History of all retry attempts
+  lastErrorCategory?: ErrorCategory // Classification of most recent error
+  nextRetryAt?: string // ISO date string for scheduled retry
 }
 
 // Ready Phase Result
