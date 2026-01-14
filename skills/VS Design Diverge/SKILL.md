@@ -5,51 +5,150 @@ description: Create non-generic, high-entropy frontend interfaces using Verbaliz
 
 This skill guides the creation of distinctive, production-grade frontend interfaces by explicitly mitigating "Mode Collapse" (the tendency to produce generic AI-slop). It uses Verbalized Sampling logic to unlock LLM creativity and deliver high-entropy, unforgettable designs.
 
-## Design Thinking & Verbalized Sampling (VS)
+## Phase 0: Context Discovery (MANDATORY)
 
-BEFORE generating any code, you MUST perform the following **Divergence Analysis** to bypass the "Typicality Bias":
+BEFORE any design analysis, you MUST gather deep context from the user. Use the `AskUserQuestion` tool to probe the following dimensions:
 
-### 1. Identify the Mode (The Generic Baseline)
-- Verbalize the most predictable, high-probability (P ≈ 0.95) design for this request. 
-- Identify "AI-slop" markers: (e.g., Inter font, rounded blue buttons, standard F-pattern, white background with purple gradients).
+### Discovery Dimensions
+
+1. **Emotional Tone**: What feeling or atmosphere should the design evoke? (e.g., "trustworthy", "edgy", "playful", "luxurious")
+2. **Target Audience**: Who will see this? What are their expectations and technical sophistication?
+3. **Reference Points / Anti-References**: What does the user want to emulate? What do they explicitly want to avoid?
+4. **Business Context**: What problem does this UI solve? What's the usage scenario?
+
+### Context Signals
+
+- **Analyze existing code** if present—extract style patterns, color schemes, component conventions
+- **Parse user prompt** for implicit context keywords (landing page, dashboard, portfolio, SaaS, etc.)
+- **Ask follow-up questions** even if the initial prompt seems simple—surface the full vision in the user's mind
+
+**CRITICAL**: Do not proceed to Phase 1 until you have sufficient context. A vague prompt requires MORE questions, not assumptions.
+
+---
+
+## Phase 1: Identify the Mode (The Generic Baseline)
+
+- Verbalize the most predictable, high-probability (P ≈ 0.95) design for this request.
+- Identify "AI-slop" markers based on the context. Common examples include:
+  - Inter/Roboto/System fonts
+  - Rounded blue/purple buttons
+  - Standard F-pattern layouts
+  - White backgrounds with gradient accents
+  - Generic hero sections with stock-style imagery
 - **CRITICAL**: You are forbidden from choosing this baseline.
 
-### 2. Sample the Long-Tail (Probability Mapping)
+---
+
+## Phase 2: Sample the Long-Tail (Probability Mapping)
+
 Generate three distinct aesthetic directions and assign a **"Typicality Score" (T-Score)** from 0 to 1.0 (where 1.0 is most generic):
+
 - **Direction A (T ≈ 0.7)**: Modern/Clean but safe.
 - **Direction B (T ≈ 0.4)**: Distinctive/Characterful (Specific niche style).
 - **Direction C (T < 0.2)**: Experimental/Bold (High-entropy, unexpected).
 
-### 3. Commit to Low-Typicality
-Select the direction with the **lowest T-Score** that still meets functional requirements. Commit to this BOLD aesthetic with intentionality.
+**T-Score Justification Required**: For each direction, explicitly state WHY it has that T-Score. What makes it more or less typical? Reference specific design choices.
+
+---
+
+## Phase 3: Commit to Low-Typicality
+
+Select the direction with the **lowest T-Score** that still meets:
+1. Functional requirements from Phase 0
+2. All Quality Guardrails (see below)
+
+Commit to this BOLD aesthetic with intentionality. The choice must be DELIBERATE, not accidental.
+
+---
+
+## Quality Guardrails (NON-NEGOTIABLE)
+
+These principles MUST be satisfied regardless of how experimental the design becomes. If a Low-T direction violates any of these, increase T until compliance is achieved.
+
+| Guardrail | Description |
+|-----------|-------------|
+| **Visual Hierarchy** | Clear priority ordering—the user's eye must know where to go first, second, third |
+| **Contrast & Legibility** | Text must be readable against its background (WCAG AA minimum) |
+| **Internal Consistency** | The design must follow its OWN logic—a coherent system, not random choices |
+| **Functional Clarity** | Interactive elements must be recognizable as such; affordances must be clear |
+
+---
+
+## Anti-Patterns (EXPLICIT FAILURES)
+
+If your design exhibits these patterns, you have FAILED the skill's intent:
+
+### 1. Accidental Design
+- Making things "different" without intentionality
+- Randomness masquerading as creativity
+- Unable to articulate WHY a choice was made
+- **Test**: If asked "why this color/font/layout?", you must have a coherent answer
+
+### 2. Frankenstein Style
+- Mixing incompatible aesthetics without synthesis
+- No unifying design language
+- Elements that feel like they belong to different projects
+- **Test**: Could you describe this design's "personality" in one sentence?
+
+---
 
 ## Frontend Aesthetics Guidelines (VS-Enhanced)
 
-Apply the "Inversion Principle": If a choice feels "obvious," it has too much probability mass. Shift to the lower-probability, higher-impact alternative.
+Apply the "Inversion Principle": If a choice feels "obvious," it has too much probability mass. Consider the lower-probability, higher-impact alternative—but only if it serves the context.
 
-- **Typography (T < 0.1 Selection)**: 
-    - REJECT: Inter, Roboto, Arial, System fonts, Space Grotesk.
-    - SELECT: High-character display faces paired with refined, unexpected body typefaces. Use variable fonts and unusual weights.
-- **Color & Theme (Chromatic Divergence)**:
-    - Avoid even distributions. Commit to a cohesive but "dissonant-yet-beautiful" palette.
-    - Use CSS variables. Prefer sophisticated textures, noise, and lighting over flat fills.
-- **Spatial Composition (Anti-Grid Logic)**:
-    - If a standard grid is P=0.9, implement P=0.1 layouts: Asymmetry, overlapping elements, diagonal flows, or editorial-style whitespace.
-- **Motion (High-Impact Entropy)**:
-    - Focus on "Micro-delights." Use staggered reveals, scroll-bound transformations, and custom eased transitions that defy standard "linear" or "ease-in" expectations.
+### Typography (Context-Aware Selection)
+- **AI-slop examples**: Inter, Roboto, Arial, System fonts, Space Grotesk in default usage
+- **Low-T approach**: High-character display faces paired with refined, unexpected body typefaces. Variable fonts, unusual weights.
+- **Remember**: The "right" font depends on context. A brutalist portfolio may use industrial sans-serifs; a luxury brand may use refined serifs.
+
+### Color & Theme (Chromatic Divergence)
+- Avoid even distributions. Commit to a cohesive but "dissonant-yet-beautiful" palette.
+- Use CSS variables for systematic theming.
+- Prefer sophisticated textures, noise, and lighting over flat fills—when appropriate to context.
+
+### Spatial Composition (Anti-Grid Logic)
+- If a standard grid is P=0.9, consider P=0.1 layouts: Asymmetry, overlapping elements, diagonal flows, or editorial-style whitespace.
+- **Caveat**: Data-heavy interfaces (dashboards, tables) may require conventional grids for usability.
+
+### Motion (High-Impact Entropy)
+- Focus on "Micro-delights": staggered reveals, scroll-bound transformations, custom eased transitions.
+- Avoid motion for motion's sake—every animation should have purpose.
+
+---
 
 ## Implementation Standards
 
 - **Production-Grade**: Code must be functional, accessible (A11y), and performant.
-- **Complexity-Typicality Balance**: As the design becomes more "Low-Probability" (unique), the implementation complexity must increase proportionally to maintain "High-Quality" (Beta-level) standards.
-- **No Refusal on Complexity**: Claude is capable of extraordinary creative work. Do not simplify the vision for the sake of brevity.
+- **Complexity-Typicality Balance**: As the design becomes more "Low-Probability," implementation complexity must increase proportionally to maintain quality.
+- **No Refusal on Complexity**: Claude is capable of extraordinary creative work. Do not simplify the vision for brevity.
 
-## Execution Process
-
-1. **Verbalize Analysis**: State the $P(Generic)$ baseline and your chosen $T < 0.2$ direction.
-2. **Define Tone**: Pick an extreme (e.g., Brutalist Raw, Retro-Futuristic, Luxury Refined).
-3. **Execute Code**: Implement the working code with meticulous attention to the chosen aesthetic.
-4. **Surprise Check**: Final validation—does this look like something an "AI" would typically build? If yes, refactor the most generic element.
-
-**REMEMBER**: The goal is to maximize the "Surprise Score" while maintaining "Production Quality." Break the mold.
 ---
+
+## Execution Process Summary
+
+```
+[Phase 0] Context Discovery
+    ↓ (AskUserQuestion tool - gather all dimensions)
+[Phase 1] Identify the Mode
+    ↓ (verbalize the generic baseline)
+[Phase 2] Sample the Long-Tail
+    ↓ (three directions with justified T-Scores)
+[Phase 3] Commit to Low-Typicality
+    ↓ (select lowest T that passes Guardrails)
+[Phase 4] Execute Code
+    ↓ (implement with meticulous attention)
+[Phase 5] Surprise Check
+    ↓ (does this look like typical AI output? if yes, refactor)
+```
+
+---
+
+## Final Validation
+
+Before delivering, ask yourself:
+1. **Intentionality**: Can I justify every major design decision?
+2. **Consistency**: Does the design follow its own internal logic?
+3. **Guardrails**: Are hierarchy, legibility, consistency, and clarity preserved?
+4. **Surprise**: Would this stand out in a lineup of AI-generated designs?
+
+**REMEMBER**: The goal is to maximize "Surprise Score" while maintaining "Production Quality." Break the mold—deliberately.
