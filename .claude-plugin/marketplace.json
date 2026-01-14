@@ -28,12 +28,12 @@
       ]
     },
     {
-      "name": "linkedin",
-      "description": "LinkedIn 콘텐츠 작성, 발행, 예약을 자동화하는 skill (한국어 전용)",
+      "name": "vs-design-diverge",
+      "description": "Create non-generic, high-entropy frontend interfaces using Verbalized Sampling (VS) to break mode collapse and maximize design creativity.",
       "source": "./",
       "strict": false,
       "skills": [
-        "./skills/linkedin"
+        "./skills/VS Design Diverge"
       ]
     }
   ]
