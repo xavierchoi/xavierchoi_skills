@@ -116,6 +116,34 @@ Apply the "Inversion Principle": If a choice feels "obvious," it has too much pr
 
 ---
 
+## Strategic Frameworks (Context-Dependent)
+
+When the user's goal involves **persuasion or conversion** (landing pages, marketing sites, product showcases), apply the **AIDA Framework** to structure the visual narrative:
+
+### AIDA Framework
+
+| Stage | Goal | Design Application |
+|-------|------|-------------------|
+| **A**ttention | Stop the scroll, create immediate visual impact | Hero section with bold typography, unexpected imagery, or striking color contrast |
+| **I**nterest | Build curiosity, encourage exploration | Reveal information progressively, use visual storytelling, highlight unique value |
+| **D**esire | Create emotional connection, make them want it | Social proof, benefits visualization, aspirational imagery, micro-interactions |
+| **A**ction | Drive conversion with clear next steps | High-contrast CTAs, reduced friction, urgency cues (when appropriate) |
+
+**When to Apply AIDA**:
+- Landing pages and marketing sites
+- Product launch pages
+- Portfolio pieces meant to attract clients
+- Any UI where the primary goal is persuasion/conversion
+
+**When NOT to Apply AIDA**:
+- Dashboards and data-heavy interfaces (prioritize usability)
+- Documentation or content-focused sites (prioritize readability)
+- Internal tools (prioritize efficiency)
+
+**VS + AIDA Integration**: Apply Low-T aesthetics to EACH stage of AIDA. A generic hero section fails at Attention; a predictable CTA fails at Action. The AIDA structure provides the "what," VS provides the "how."
+
+---
+
 ## Implementation Standards
 
 - **Production-Grade**: Code must be functional, accessible (A11y), and performant.
