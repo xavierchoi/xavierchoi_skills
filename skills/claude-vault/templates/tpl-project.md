@@ -7,7 +7,7 @@ due:
 tags: []
 ---
 
-# {{Project Name}}
+# {{project-name}}
 
 ## Objective
 What does "done" look like?

@@ -6,7 +6,7 @@ last_generated: {{date}}
 tags: []
 ---
 
-# {{Topic}} MOC
+# {{topic}} MOC
 
 ## Overview
 {{What this topic covers}}

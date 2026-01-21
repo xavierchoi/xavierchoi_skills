@@ -7,7 +7,7 @@ source_url:
 tags: []
 ---
 
-# {{Title}}
+# {{title}}
 
 ## Summary
 {{One paragraph summary in your own words}}
