@@ -44,14 +44,7 @@
     {
       "name": "resume-coach",
       "description": "Interactive 7-level resume coaching process. Transforms generic resumes into compelling, personalized documents through recruiter perspective analysis, gap comparison, and expression discovery.",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./skills/resume-coach"
-      ],
-      "agents": [
-        "./skills/resume-coach/agents"
-      ]
+      "source": "./skills/resume-coach"
     }
   ]
 }
