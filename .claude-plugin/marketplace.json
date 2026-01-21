@@ -35,6 +35,26 @@
       "skills": [
         "./skills/VS Design Diverge"
       ]
+    },
+    {
+      "name": "claude-vault",
+      "description": "AI-Native Personal Knowledge Management System for Obsidian using PARA method. Includes 9 skills for capture, process, daily notes, weekly reviews, projects, search, status, MOC, and archive.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/vault-capture",
+        "./skills/vault-process",
+        "./skills/vault-daily",
+        "./skills/vault-weekly",
+        "./skills/vault-project",
+        "./skills/vault-search",
+        "./skills/vault-status",
+        "./skills/vault-moc",
+        "./skills/vault-archive"
+      ],
+      "commands": [
+        "./commands/vault-init.md"
+      ]
     }
   ]
 }
