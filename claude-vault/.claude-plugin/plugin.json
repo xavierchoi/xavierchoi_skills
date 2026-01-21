@@ -1,0 +1,13 @@
+{
+  "name": "claude-vault",
+  "description": "AI-Native Personal Knowledge Management System for Obsidian using PARA method",
+  "version": "1.0.0",
+  "author": {
+    "name": "Hunmin (Xavier) Choi",
+    "email": "internetbasedboy@gmail.com"
+  },
+  "homepage": "https://github.com/xavierchoi/xavierchoi_skills",
+  "repository": "https://github.com/xavierchoi/xavierchoi_skills",
+  "license": "MIT",
+  "keywords": ["obsidian", "pkm", "para", "knowledge-management", "note-taking", "productivity"]
+}
