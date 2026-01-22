@@ -6,16 +6,16 @@
   },
   "metadata": {
     "description": "Claude skills by Xavier Choi",
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   "plugins": [
     {
-      "name": "frontend-for-opus-4-5",
+      "name": "frontend-for-opus-4.5",
       "description": "Frontend design skill for UI/UX implementation for Opus 4.5",
       "source": "./",
       "strict": false,
       "skills": [
-        "./skills/frontend-for-opus-4-5"
+        "./skills/frontend-for-opus-4.5"
       ]
     },
     {
