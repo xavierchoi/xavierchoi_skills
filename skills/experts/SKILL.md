@@ -1,208 +1,140 @@
 ---
 name: experts
-description: This skill should be used when the user explicitly wants authoritative domain expertise applied to their task - seeking guidance from renowned practitioners, specialists, or thought leaders rather than a generic response. The user's intent is to leverage professional perspectives to enhance their request. Do NOT trigger on general help requests where the user simply wants the task done.
-version: 0.1.0
+description: This skill should be used when the user wants authoritative domain expertise applied to their task - seeking guidance from renowned practitioners, specialists, or thought leaders rather than a generic response. Auto-select quick mode when the request is straightforward; use interactive mode when complex or user wants to choose.
+version: 0.2.0
 ---
 
 # Expert-Enhanced Prompt System
 
-Transform simple user requests into expert-informed prompts by discovering relevant domain experts and applying their perspectives to enhance the original request.
+Transform simple requests into expert-informed prompts by suggesting domain experts and applying their methodologies.
 
-## When This Skill Applies
+## Mode Selection
 
-Activate this skill when the user's **intent** is to leverage professional expertise:
+Select mode based on context and user intent:
 
-**Trigger signals:**
-- Mentions experts, specialists, professionals, thought leaders, gurus, 대가, 석학, 프로 등
-- Wants "professional perspective" or "expert opinion"
-- Asks to approach something "like a pro" or "전문가처럼"
-- Seeks authoritative guidance beyond generic help
+### Quick Mode (Default)
 
-**Example triggers:**
-- "전문가랑 같이 블로그 글 써줘"
-- "프로처럼 마케팅 전략 세워줘"
-- "get expert help with my presentation"
-- "approach this like a specialist would"
+Auto-select the most appropriate expert and execute immediately.
 
-**Do NOT activate** when the user simply wants the task done without seeking expert methodology.
+**When to use:**
+- Request is clear and specific
+- Single obvious domain
+- User tone suggests efficiency preference
+- No ambiguity about desired outcome
+
+**Flow:** Analyze → Auto-select expert → Generate enhanced prompt → Execute
+
+### Interactive Mode
+
+Present 2-3 expert options for user selection.
+
+**When to use:**
+- Request is vague or spans multiple domains
+- User explicitly wants options (e.g., "어떤 전문가가 있어?", "show me options")
+- Complex task where expert choice significantly affects outcome
+- User seems exploratory or uncertain
+
+**Flow:** Analyze → Present experts → User selects → Generate enhanced prompt → Offer to execute
 
 ## Core Workflow
 
-### Phase 1: Analyze the Request
+### Step 1: Analyze Request
 
-Parse the user's request to identify:
+Parse the request to identify:
 
-1. **Domain**: What field or discipline does this request belong to?
-2. **Intent**: What is the user actually trying to accomplish?
-3. **Implicit needs**: What unstated requirements might exist?
-4. **Quality markers**: What would make the output excellent vs. mediocre?
+1. **Domain**: What field does this belong to?
+2. **Intent**: What is the user trying to accomplish?
+3. **Complexity**: Simple/clear vs. complex/ambiguous?
+4. **Mode signal**: Quick or interactive?
 
-### Phase 2: Discover Domain Experts
+### Step 2: Suggest Experts
 
-Conduct a web search to find 2-3 renowned experts whose work relates to the request.
+Recommend 2-3 renowned experts from built-in knowledge.
 
-**Search Strategy**:
-- Search for: `"best [domain] experts"`, `"famous [domain] practitioners"`, `"[domain] thought leaders"`
-- Look for experts known for distinctive methodologies or frameworks
-- Prioritize experts with published works, established reputations, or unique approaches
-- Seek diversity in perspectives (academic vs. practitioner, traditional vs. innovative)
+**Default (No Web Search):**
+- Use knowledge of established experts (authors, thought leaders, practitioners)
+- Provides instant response without search latency
 
-**For Each Expert, Gather**:
-- Name and brief background
-- Their signature approach or methodology
-- Key principles they advocate
-- What makes their perspective unique
+**Optional Web Search:**
+- Only when user explicitly requests latest/emerging experts
+- Useful for: newly emerging figures, very niche domains
 
-### Phase 3: Present Experts to User
+**For each expert, provide:**
+- Name and background (1 sentence)
+- Signature methodology
+- How they would approach this task
 
-Present the discovered experts with concise profiles:
+**Quick Mode:** Select the single best-fit expert automatically.
 
-```
-## Discovered Experts
+**Interactive Mode:** Use AskUserQuestion tool:
+- header: "Expert"
+- question: "Which expert's perspective to apply?"
+- options: 2-3 experts, each with label (name) and description (methodology + approach)
 
-### 1. [Expert Name]
-**Background**: [1-2 sentence description]
-**Known For**: [Their signature methodology or approach]
-**Perspective**: [How they would approach this type of task]
+### Step 3: Generate Enhanced Prompt
 
-### 2. [Expert Name]
-...
-
-### 3. [Expert Name]
-...
-```
-
-Then ask the user to select which expert perspective(s) to apply.
-
-### Phase 4: Generate Enhanced Prompt
-
-Based on user selection, create an enhanced prompt that incorporates:
-
-1. **Expert's Framework**: Apply their methodology to structure the task
-2. **Quality Standards**: What this expert would consider essential
-3. **Specific Techniques**: Approaches this expert is known for
-4. **Success Criteria**: How the expert would evaluate the output
-
-**Enhanced Prompt Structure**:
+Create a focused enhanced prompt:
 
 ```
-## Enhanced Prompt (Based on [Expert Name]'s Approach)
+## [Expert]'s Approach
 
-### Context
-[Expanded context based on expert's domain understanding]
+**Framework:** [Their methodology applied to this task]
 
-### Task
-[Refined task description using expert's terminology and framework]
+**Key Techniques:**
+- [Technique 1]
+- [Technique 2]
+- [Technique 3]
 
-### Approach
-[Step-by-step methodology aligned with expert's known techniques]
-
-### Quality Criteria
-[Standards and evaluation metrics the expert would apply]
-
-### Expected Output
-[Specific deliverable description with expert-level expectations]
+**Success Criteria:**
+- [What expert would consider essential]
+- [Quality markers]
 ```
 
-## Expert Discovery Guidelines
+### Step 4: Execute or Offer
 
-### Effective Expert Search Patterns
+**Quick Mode:** Execute immediately using the enhanced prompt.
 
-| Domain | Search Terms |
-|--------|--------------|
-| Writing/Content | "best copywriters", "famous authors [genre]", "content strategy experts" |
-| Business/Strategy | "top business strategists", "renowned CEOs", "management thought leaders" |
-| Technology | "influential developers", "tech visionaries", "software architecture experts" |
-| Design | "famous designers", "UX pioneers", "design thinking leaders" |
-| Marketing | "legendary marketers", "brand strategy experts", "growth hackers" |
+**Interactive Mode:** Ask "이 프롬프트로 바로 실행할까요?" then execute if confirmed.
 
-### Expert Selection Criteria
+## Expert Selection Guidelines
 
 Select experts who:
-- Have demonstrable track records in the relevant domain
+- Have demonstrable track records
 - Offer distinct, well-documented methodologies
-- Represent different schools of thought when possible
-- Have insights applicable to the user's specific context
+- Have insights applicable to user's context
 
-### Avoiding Poor Expert Matches
-
-Do not select:
-- Generic "influencers" without substantive expertise
-- Experts whose work is unrelated to the actual request
+Avoid:
+- Generic influencers without substantive expertise
+- Experts unrelated to the actual request
 - Controversial figures without clear professional merit
-- Fictional or unverifiable personas
 
-## Prompt Enhancement Principles
-
-### From Vague to Specific
-
-Transform ambiguous requests into precise specifications:
-
-| Original | Enhanced |
-|----------|----------|
-| "Write a blog post" | "Create a 1,500-word thought leadership article using [Expert]'s inverted pyramid structure, opening with a counterintuitive insight..." |
-| "Help me with my presentation" | "Design a presentation following [Expert]'s rule of three, with one key message per slide and visual-first storytelling..." |
-
-### Adding Expert Methodology
-
-Incorporate the expert's known frameworks:
-
-- **Structure**: How they organize information
-- **Voice**: Characteristic tone and style
-- **Priorities**: What they emphasize most
-- **Techniques**: Specific methods they employ
-
-### Preserving User Intent
+## Preserving User Intent
 
 The enhanced prompt must:
-- Maintain the user's original goal
+- Maintain the original goal
 - Not add unwanted scope or complexity
-- Respect any constraints the user mentioned
+- Respect stated constraints
 - Be executable with available resources
 
-## User Interaction Flow
+## Example Flow
 
-1. **Receive request** → Acknowledge and begin analysis
-2. **Search experts** → Conduct web search, compile findings
-3. **Present options** → Show expert profiles with clear differentiators
-4. **Get selection** → User chooses perspective(s) to apply
-5. **Deliver enhanced prompt** → Provide the transformed prompt
-6. **Offer to execute** → Ask: "이 향상된 프롬프트를 바로 실행할까요?"
-7. **Auto-execute if approved** → If user confirms, immediately execute the enhanced prompt
-
-### Auto-Execution Protocol
-
-When the user approves execution:
-
-1. Treat the enhanced prompt as if the user had submitted it directly
-2. Begin working on the task using the expert's methodology
-3. Apply all quality criteria and frameworks specified in the enhanced prompt
-4. Deliver the final output according to the enhanced specifications
-
-**Example dialogue:**
+### Quick Mode Example
 ```
-User: "블로그 글 써줘"
-Claude: [전문가 검색 및 프롬프트 향상 진행]
-Claude: "Cal Newport의 관점으로 향상된 프롬프트를 준비했습니다. 바로 실행할까요?"
-User: "응"
-Claude: [향상된 프롬프트에 따라 블로그 글 작성 시작]
+User: "전문가처럼 생산성 블로그 글 써줘"
+
+[Analyze: clear request, single domain (productivity/writing), no ambiguity → Quick Mode]
+[Auto-select: Cal Newport - Deep Work methodology fits productivity writing]
+[Generate enhanced prompt with Newport's framework]
+[Execute immediately]
 ```
 
-## Additional Resources
+### Interactive Mode Example
+```
+User: "전문가 관점으로 우리 스타트업 전략 좀 봐줘"
 
-### Reference Files
-
-For detailed patterns and examples, consult:
-- **`references/enhancement-patterns.md`** - Common enhancement patterns by domain
-- **`examples/before-after.md`** - Example transformations showing original vs. enhanced prompts
-
-## Quality Standards
-
-A well-enhanced prompt should:
-
-- [ ] Clearly reflect the chosen expert's methodology
-- [ ] Be significantly more specific than the original
-- [ ] Include actionable structure and guidance
-- [ ] Define clear success criteria
-- [ ] Remain true to the user's original intent
-- [ ] Be immediately usable without further clarification
+[Analyze: broad request, multiple possible angles → Interactive Mode]
+[AskUserQuestion: header="Expert", options=Porter/Ries/Thiel with descriptions]
+[User selects: Eric Ries]
+[Generate enhanced prompt with Lean Startup framework]
+[Offer to execute → User confirms → Execute]
+```

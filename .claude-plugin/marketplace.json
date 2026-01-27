@@ -28,11 +28,6 @@
       ]
     },
     {
-      "name": "claude-vault",
-      "description": "AI-Native Personal Knowledge Management System for Obsidian using PARA method. Includes 9 skills for capture, process, daily notes, weekly reviews, projects, search, status, MOC, and archive.",
-      "source": "./skills/claude-vault"
-    },
-    {
       "name": "experts",
       "description": "Expert-enhanced prompt system. Discovers domain experts via web search and transforms simple requests into sophisticated, expert-informed prompts.",
       "source": "./",
