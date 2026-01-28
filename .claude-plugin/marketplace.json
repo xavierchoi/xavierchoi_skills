@@ -15,7 +15,10 @@
       "source": "./",
       "strict": false,
       "skills": [
-        "./skills/frontend-for-opus-4-5"
+        "./skills/frontend-for-opus-4.5"
+      ],
+      "commands": [
+        "./commands/frontend-for-opus-4.5.md"
       ]
     },
     {
@@ -25,6 +28,9 @@
       "strict": false,
       "skills": [
         "./skills/VS Design Diverge"
+      ],
+      "commands": [
+        "./commands/vs-design-diverge.md"
       ]
     },
     {
@@ -34,12 +40,22 @@
       "strict": false,
       "skills": [
         "./skills/experts"
+      ],
+      "commands": [
+        "./commands/experts.md"
       ]
     },
     {
       "name": "resume-coach",
       "description": "Interactive 7-level resume coaching process. Transforms generic resumes into compelling, personalized documents through recruiter perspective analysis, gap comparison, and expression discovery.",
-      "source": "./skills/resume-coach"
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/resume-coach"
+      ],
+      "commands": [
+        "./commands/resume-coach.md"
+      ]
     }
   ]
 }
