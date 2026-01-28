@@ -1,21 +1,6 @@
 # Resume Coach
 
-Interactive 7-level resume coaching process that transforms generic AI-polished resumes into compelling, personalized documents.
-
-## Overview
-
-Most AI-assisted resume improvements produce similar results because they lack context. Resume Coach takes a different approach: instead of simply rewriting, it guides users through a structured discovery process that uncovers hidden strengths and creates genuine differentiation.
-
-**Core Philosophy**: The goal is not to write the resume FOR you, but to help you rediscover and reframe your own experiences.
-
-## Features
-
-- **Recruiter Perspective Analysis**: Identifies questions a hiring manager would ask
-- **Ideal Candidate Comparison**: Shows what you're competing against
-- **Gap Analysis**: Reveals strengths and areas for improvement
-- **High-Spec Version Generation**: Creates an aspirational benchmark (via subagent)
-- **Expression Discovery**: Helps you adopt compelling framings legitimately
-- **Final Resume Assembly**: Synthesizes everything into a polished result
+Interactive 6-phase resume coaching process that transforms generic resumes into compelling, personalized documents.
 
 ## Installation
 
@@ -43,31 +28,26 @@ Most AI-assisted resume improvements produce similar results because they lack c
 1. **Resume**: File path (`.pdf`, `.docx`, `.md`) or pasted text
 2. **Job Posting**: URL, file, or pasted text
 
-### The Coaching Process
+## The Coaching Process
 
-| Phase | Level | Description |
-|-------|-------|-------------|
-| 1 | 3 | Recruiter perspective questions |
-| 2 | 4 | Ideal candidate generation |
-| 3 | 5 | Gap analysis (ideal vs. your resume) |
-| 4 | 6 | High-spec version (via subagent) |
-| 5 | 6.5 | Expression discovery (2nd comparison) |
-| 6 | 7 | Final resume assembly |
+| Phase | Description |
+|-------|-------------|
+| 1 | Recruiter perspective questions |
+| 2 | Ideal candidate generation |
+| 3 | Gap analysis (ideal vs. your resume) |
+| 4 | High-spec version (via subagent) |
+| 5 | Expression discovery |
+| 6 | Final resume assembly |
 
 ## Components
 
 ### Skill: resume-coach
 
-Main skill that orchestrates the entire coaching process using `AskUserQuestion` for interactive guidance.
+Main skill that orchestrates the entire coaching process.
 
 ### Agent: high-spec-generator
 
-Generates a competitive-level resume version using only:
-- Company names
-- Job titles
-- Employment periods
-
-The agent deliberately does NOT see your original resume details to avoid anchoring bias, producing fresh perspectives on how achievements could be presented.
+Generates a competitive-level resume version using only company names, job titles, and employment periods. Deliberately does NOT see your original resume details to avoid anchoring bias.
 
 ## Example Session
 
@@ -87,13 +67,11 @@ Claude: [Phase 1 시작 - 채용담당자 관점 질문]
 
 ## Language Support
 
-- Korean and English fully supported
-- Matches user's input language
-- Technical terms may remain in English
+Korean and English fully supported. Matches user's input language.
 
 ## Credits
 
-Inspired by the LinkedIn post "ChatGPT로 서류 통과 확률 50% 이상 높이는 법" - a 7-level methodology for resume improvement.
+Inspired by the LinkedIn post "ChatGPT로 서류 통과 확률 50% 이상 높이는 법".
 
 ## License
 

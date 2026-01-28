@@ -1,6 +1,6 @@
 ---
 name: resume-coach
-description: This skill should be used when the user asks to "improve my resume", "review my resume", "help with job application", "이력서 개선해줘", "이력서 코칭해줘", "취업 준비 도와줘", "서류 통과율 높이고 싶어", or wants coaching-style resume improvement rather than simple editing. Provides an interactive 7-level resume coaching process that transforms generic resumes into compelling, personalized documents.
+description: Use when user wants coaching-style resume improvement rather than simple AI rewriting. Guides users through a structured discovery process to uncover hidden strengths and create genuine differentiation for a target job posting.
 ---
 
 # Resume Coach: Interactive Resume Improvement Process
@@ -24,7 +24,7 @@ If either is missing, request it before proceeding.
 
 ## The Coaching Process
 
-### Phase 1: Recruiter Perspective Analysis (Level 3)
+### Phase 1: Recruiter Perspective Analysis
 
 Analyze the resume from a hiring manager's viewpoint. Identify 3-5 questions a recruiter would ask when reviewing this resume.
 
@@ -42,7 +42,7 @@ Collect answers to enrich the resume context.
 Store responses for use in final resume.
 ```
 
-### Phase 2: Ideal Candidate Generation (Level 4)
+### Phase 2: Ideal Candidate Generation
 
 Based on the job posting, generate a fictional "ideal candidate" resume. This represents what the hiring manager imagines as the perfect fit.
 
@@ -64,7 +64,7 @@ Based on this job posting, here's what the hiring manager's
 This helps us understand what we're competing against.
 ```
 
-### Phase 3: Gap Analysis (Level 5)
+### Phase 3: Gap Analysis
 
 Compare the user's resume against the ideal candidate. Create a structured comparison that reveals strengths and areas for improvement.
 
@@ -82,7 +82,7 @@ Compare the user's resume against the ideal candidate. Create a structured compa
 - **Opportunities**: Gaps that can be addressed with existing experience
 - **Limitations**: Genuine gaps to acknowledge
 
-### Phase 4: High-Spec Version Generation (Level 6)
+### Phase 4: High-Spec Version Generation
 
 This phase uses the `high-spec-generator` subagent.
 
@@ -96,14 +96,17 @@ The subagent operates without seeing the original resume details, only:
 This isolation prevents anchoring to the original resume's framing, producing fresh perspectives on how achievements could be presented.
 
 **Invoke the Subagent:**
-```
-Launch high-spec-generator agent with:
+
+Use your environment's agent invocation method. In Claude Code, use Task tool with `subagent_type="resume-coach:high-spec-generator"`.
+
+**IMPORTANT**: Do NOT include original resume content in the prompt. Only provide:
 - User's company names, titles, dates
 - Target job posting
 - Request: Generate a competitive-level resume
-```
 
-### Phase 5: Expression Discovery (Level 6.5)
+This isolation prevents anchoring to the original resume's framing.
+
+### Phase 5: Expression Discovery
 
 Compare the high-spec version against the original resume. Help the user identify expressions and framings they can legitimately adopt.
 
@@ -126,7 +129,7 @@ The high-spec version uses these compelling framings:
 **Use AskUserQuestion:**
 For each compelling expression, ask if the user has similar experiences they haven't highlighted.
 
-### Phase 6: Final Resume Assembly (Level 7)
+### Phase 6: Final Resume Assembly
 
 Synthesize all collected information into the final resume:
 
@@ -150,47 +153,28 @@ Synthesize all collected information into the final resume:
 
 This skill heavily uses AskUserQuestion for interactive coaching. Follow these patterns:
 
+**Fallback**: If AskUserQuestion is unavailable in your environment, present one question at a time as a numbered list and wait for user response before proceeding to the next question.
+
 **For Recruiter Questions (Phase 1):**
-```json
-{
-  "question": "이 프로젝트에서 A를 담당하셨나요, B를 담당하셨나요, 둘 다인가요?",
-  "header": "역할 명확화",
-  "options": [
-    {"label": "A만 담당", "description": "..."},
-    {"label": "B만 담당", "description": "..."},
-    {"label": "둘 다 담당", "description": "..."}
-  ],
-  "multiSelect": false
-}
-```
+- header: Role/scope clarification
+- options: Mutually exclusive choices about responsibilities, scope, or metrics
 
 **For Expression Validation (Phase 5):**
-```json
-{
-  "question": "고스펙 버전에서 '팀 효율성 30% 향상'이라는 표현이 있는데, 비슷한 성과가 있으셨나요?",
-  "header": "성과 확인",
-  "options": [
-    {"label": "네, 비슷한 성과 있음", "description": "구체적으로 말씀해주세요"},
-    {"label": "아니요, 해당 없음", "description": "다음 항목으로 넘어갑니다"}
-  ],
-  "multiSelect": false
-}
-```
+- header: Achievement confirmation
+- options: Whether user has similar experiences to adopt the framing
 
 ## Progress Tracking
 
-Use TodoWrite to track progress through phases:
+Use your environment's task tracking tool to track progress through phases. In Claude Code, prefer TaskCreate/TaskUpdate.
 
-```
-[ ] Phase 1: Recruiter Perspective Questions
-[ ] Phase 2: Ideal Candidate Generation
-[ ] Phase 3: Gap Analysis
-[ ] Phase 4: High-Spec Version (via subagent)
-[ ] Phase 5: Expression Discovery
-[ ] Phase 6: Final Resume Assembly
-```
+- Phase 1: Recruiter Perspective Questions
+- Phase 2: Ideal Candidate Generation
+- Phase 3: Gap Analysis
+- Phase 4: High-Spec Version (via subagent)
+- Phase 5: Expression Discovery
+- Phase 6: Final Resume Assembly
 
-Update status as each phase completes.
+Update task status as each phase completes.
 
 ## Language Handling
 
