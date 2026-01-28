@@ -1,7 +1,7 @@
 ---
 name: experts
-description: This skill should be used when the user wants authoritative domain expertise applied to their task - seeking guidance from renowned practitioners, specialists, or thought leaders rather than a generic response.
-version: 0.3.0
+description: Use when user seeks domain-specific expertise shaped by a practitioner's methodology, not just information. The user wants their work approached from a recognized expert's perspective - how would [specific expert] solve this problem, write this code, design this system.
+version: 0.3.1
 ---
 
 # Expert-Enhanced Prompt System
@@ -31,7 +31,7 @@ Analyze (silent) → Present experts → User selects → Execute
 
 Present 2-3 experts using AskUserQuestion:
 - header: "Expert"
-- options: name as label, methodology as description (one line each)
+- options: name as label, description explains how this expert's perspective will approach the user's specific request (1-2 sentences)
 
 User selects, then proceed to execution.
 

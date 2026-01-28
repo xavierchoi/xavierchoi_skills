@@ -35,7 +35,7 @@
     },
     {
       "name": "experts",
-      "description": "Expert-enhanced prompt system. Discovers domain experts via web search and transforms simple requests into sophisticated, expert-informed prompts.",
+      "description": "Expert-enhanced prompt system. Presents domain experts with distinct methodologies for user selection, then executes the task from the chosen expert's perspective.",
       "source": "./",
       "strict": false,
       "skills": [
